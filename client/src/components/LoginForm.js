@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import {LOGIN_USER} from '../utils/mutations';
-import {useMutation} from '../utils/mutations';
+import {useMutation} from '@apollo/client';
 import Auth from '../utils/auth';
 
 const LoginForm = () => {
@@ -34,11 +34,6 @@ const LoginForm = () => {
       const {data} = await loginUser({
         variables: {...userFormData}
       });
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
       Auth.login(data.login.token);
     } catch (err) {
       console.error(err);
